@@ -1,12 +1,25 @@
 # Retail Sales Pipeline Documentation
 
 ## Overview
-This documentation describes the data pipeline that combines retail sales data with employee (salesman) information to create a comprehensive retail sales tracking system.
 
-## Source Tables
+This documentation describes the relationship between three main tables: `employee_info`, `Retail_sales`, and `Employee_satisfaction`.
+
+### Table Relationships
+- `employee_info` is the main employee table containing basic employee information
+- `Retail_sales` connects to `employee_info` through `Salesman_ID = employee_id`
+- `Employee_satisfaction` connects to `employee_info` through `employee_id`
+
+```mermaid
+erDiagram
+    employee_info ||--o{ Retail_sales : "Salesman_ID"
+    employee_info ||--|| Employee_satisfaction : "employee_id"
+```
+
+## Table Specifications
 
 ### employee_info
-Contains information about employees (salesmen)
+Primary table containing core employee data.
+
 ```sql
 CREATE TABLE CDDtest.dbo.employee_info (
     employee_id int NOT NULL,              -- Unique identifier for each employee
@@ -18,7 +31,8 @@ CREATE TABLE CDDtest.dbo.employee_info (
 ```
 
 ### Retail_sales
-Contains retail transaction information linked to salesmen
+Contains retail transaction data linked to sales employees.
+
 ```sql
 CREATE TABLE CDDtest.dbo.Retail_sales (
     InvoiceNo nvarchar(50) NULL,           -- Unique identifier for each sale transaction
@@ -30,6 +44,22 @@ CREATE TABLE CDDtest.dbo.Retail_sales (
     CustomerID int NULL,                   -- Unique identifier for each customer
     Salesman_ID int NULL,                  -- References employee_id from employee_info
     Country nvarchar(50) NULL              -- Country where the sale occurred
+);
+```
+
+### Employee_satisfaction
+Contains employee satisfaction metrics and performance data.
+
+```sql
+CREATE TABLE CDDtest.dbo.Employee_Info (
+    employee_id int NULL,                                  -- Employee identifier
+    Education nvarchar(50) NULL,                           -- Education level
+    EnvironmentSatisfaction nvarchar(50) NULL,             -- Workplace environment rating
+    JobInvolvement nvarchar(50) NULL,                      -- Level of job involvement
+    JobSatisfaction nvarchar(50) NULL,                     -- Overall job satisfaction
+    PerformanceRating int NULL,                            -- Employee performance score
+    RelationshipSatisfaction nvarchar(50) NULL,            -- Work relationship rating
+    WorkLifeBalance nvarchar(50) NULL                      -- Work-life balance rating
 );
 ```
 
@@ -47,7 +77,20 @@ GROUP BY e.First_name, e.Last_name
 ORDER BY Total_Revenue DESC;
 ```
 
-### 2. Top Products by Country
+### 2. Employee Satisfaction vs Performance
+```sql
+SELECT 
+    ei.First_name + ' ' + ei.Last_name as Employee_Name,
+    ei.Job_title,
+    es.JobSatisfaction,
+    es.PerformanceRating
+FROM CDDtest.dbo.employee_info ei
+JOIN CDDtest.dbo.Employee_satisfaction es 
+    ON ei.employee_id = es.employee_id
+WHERE es.PerformanceRating > 3;
+```
+
+### 3. Top Products by Country
 ```sql
 SELECT 
     Country,
@@ -59,7 +102,7 @@ GROUP BY Country, Description
 ORDER BY Country, Total_Revenue DESC;
 ```
 
-### 3. Salesman Performance by Quarter
+### 4. Salesman Performance by Quarter
 ```sql
 SELECT 
     e.First_name + ' ' + e.Last_name AS Salesman_Name,
@@ -80,7 +123,7 @@ ORDER BY
     Quarterly_Revenue DESC;
 ```
 
-### 4. Customer Purchase Analysis
+### 5. Customer Purchase Analysis
 ```sql
 SELECT 
     CustomerID,

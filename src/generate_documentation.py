@@ -17,11 +17,13 @@ for file in schema_files:
 
 system_prompt = """You are a data engineer looking to create documentation and example queries for your data sets"""
 
-user_prompt = f"""Using cumulative table input schema {all_schemas['Retail_sales.sql']}
-                 Generate a pipeline documentation in markdown 
-                    that shows how this is generated from 
-                {all_schemas['employee_info.sql']}
-                make sure to include example queries that use the season stats array
+# You may need to alter this prompt to get what you want
+user_prompt = f"""Using our main table scheme {all_schemas['employee_info.sql']}
+                Generate a pipeline documentation in markdown format to show how these 
+                two related tables {all_schemas['Retail_sales.sql']}
+                and {all_schemas['Employee_satisfaction.sql']}
+                are related to eachother and the original table
+                make sure to include example queries
                 make sure to document all columns with column comments
                 make sure to document all created types as well
             """
