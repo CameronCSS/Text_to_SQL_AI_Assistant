@@ -4,7 +4,15 @@ from langchain.agents.agent_toolkits.gmail.toolkit import GmailToolkit
 from langchain.tools.gmail.utils import build_resource_service, get_gmail_credentials
 from langchain.agents import initialize_agent, AgentType
 import os
-API_KEY = os.environ['OPENAI_API_KEY']
+import anthropic
+
+# Read the API key directly from the file
+with open('../apikey.env', 'r') as file:
+    API_KEY = file.read().strip()
+
+client = anthropic.Anthropic(api_key=API_KEY)
+
+
 # setup llm
 llm = OpenAI(temperature=0, openai_api_key=API_KEY, model_name='gpt-4')
 

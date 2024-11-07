@@ -130,8 +130,7 @@ SELECT
     COUNT(DISTINCT InvoiceNo) AS Total_Transactions,
     COUNT(DISTINCT StockCode) AS Unique_Products_Bought,
     SUM(CAST(Quantity AS int)) AS Total_Items_Bought,
-    SUM(CAST(Quantity AS int) * UnitPrice) AS Total_Spent,
-    COUNT(DISTINCT Salesman_ID) AS Different_Salesmen_Interaction
+    SUM(CAST(Quantity AS int) * UnitPrice) AS Total_Spent
 FROM CDDtest.dbo.Retail_sales
 WHERE CustomerID IS NOT NULL
 GROUP BY CustomerID
