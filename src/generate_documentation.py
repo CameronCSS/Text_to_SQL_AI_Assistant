@@ -15,22 +15,15 @@ for file in schema_files:
     opened_file = open('../schemas/' + file, 'r')
     all_schemas[file] = opened_file.read()
 
-system_prompt = """
-            You are a data engineer looking to generate an Airflow pipeline DAG skeleton 
-            without the SQL details
-            """
+system_prompt = """You are a data engineer looking to create documentation and example queries for your data sets"""
 
-user_prompt = f"""
-                Generate a cumulative Airflow DAG that transforms 
-                {all_schemas['player_seasons.sql']}
-                into {all_schemas['players.sql']}
-                use markdown for output and Postgres for queries
-                The DAG depends on last season data from players table 
-                and the DAG depends on past is true
-                Make sure each run scans only one season and does a 
-                FULL OUTER JOIN with the previous seasons data
-                Use the {{ ds }} airflow parameter to filter season 
-                All create table statements should include IF NOT EXISTS
+user_prompt = f"""Using cumulative table input schema {all_schemas['Retail_sales.sql']}
+                 Generate a pipeline documentation in markdown 
+                    that shows how this is generated from 
+                {all_schemas['employee_info.sql']}
+                make sure to include example queries that use the season stats array
+                make sure to document all columns with column comments
+                make sure to document all created types as well
             """
 
 
@@ -63,5 +56,5 @@ if not os.path.exists('../output'):
     os.mkdir('../output')
 
 # Write the content to file
-with open('../output/airflow_dag.py', 'w') as file:
+with open('../output/documentation.md', 'w') as file:
     file.write(content)
