@@ -51,16 +51,16 @@ What it can do:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Prerequisites
-
-You will need to create an Anthropic account
-
--> Create an account [HERE](https://console.anthropic.com)
+> ### Prerequisites
+> 
+> You will need to create an Anthropic account
+> 
+> -> Create an account [HERE](https://console.anthropic.com)
 
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below are the basic steps you need to follow to try this assistant on your local machine_
 
 1. Get a Antrhopic API Key at [anthropic](https://console.anthropic.com/settings/keys)
 2. Clone the repo
