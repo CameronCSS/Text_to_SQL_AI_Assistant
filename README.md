@@ -7,11 +7,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/user-attachments/assets/bd802a94-b5dd-41d9-b891-cd3982e8c3ff" alt="TexttoSQL" height="300">
+    <img src="https://github.com/user-attachments/assets/12f1e332-ec27-46f6-9dd9-1c47a83c7e26" alt="TexttoSQL" height="300">
   </a>
 
 </div>
-
 
 
 
