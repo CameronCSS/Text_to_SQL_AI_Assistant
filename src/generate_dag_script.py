@@ -1,14 +1,18 @@
-import openai
+import anthropic
 import os
-from util import get_api_key
-openai.api_key = get_api_key()
 
-schema_files = os.listdir('schemas')
+# Read the API key directly from the file
+with open('../apikey.env', 'r') as file:
+    API_KEY = file.read().strip()
+
+client = anthropic.Anthropic(api_key=API_KEY)
+
+schema_files = os.listdir('../schemas')
 
 all_schemas = {}
 
 for file in schema_files:
-    opened_file = open('schemas/' + file, 'r')
+    opened_file = open('../schemas/' + file, 'r')
     all_schemas[file] = opened_file.read()
 
 system_prompt = """
@@ -29,26 +33,35 @@ user_prompt = f"""
                 All create table statements should include IF NOT EXISTS
             """
 
-print(system_prompt)
-print(user_prompt)
 
-response = openai.chat.completions.create(
-    model="gpt-4",
+message = client.messages.create(
+    model="claude-3-5-sonnet-20241022",
+    max_tokens=1000,
+    temperature=0,
+    system= system_prompt,
     messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
-    ],
-    temperature=0
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": user_prompt
+                }
+            ]
+        }
+    ]
 )
-answer = response.choices[0].message.content
 
-if not os.path.exists('output'):
-    os.mkdir('output')
-
-output = filter(lambda x: x.startswith('python'), answer.split('```'))
-# Open the file with write permissions
-with open('output/airflow_dag.py', 'w') as file:
-    # Write some data to the file
-    file.write('\n'.join(output))
+# # USE to test Print the output before writing.
+# print(message.content)
 
 
+# Extract the text content from the message
+content = message.content[0].text if isinstance(message.content, list) else message.content
+
+if not os.path.exists('../output'):
+    os.mkdir('../output')
+
+# Write the content to file
+with open('../output/airflow_dag.py', 'w') as file:
+    file.write(content)
