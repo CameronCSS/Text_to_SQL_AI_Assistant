@@ -7,11 +7,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="https://github.com/user-attachments/assets/bd802a94-b5dd-41d9-b891-cd3982e8c3ff" alt="TexttoSQL" height="300">
+    <img src="https://github.com/user-attachments/assets/12f1e332-ec27-46f6-9dd9-1c47a83c7e26" alt="TexttoSQL" height="300">
   </a>
 
 </div>
-
 
 
 
@@ -19,7 +18,7 @@
 ## Text ➡️ SQL AI Assistant
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary>
   <ol>
     <li>
@@ -52,16 +51,16 @@ What it can do:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Prerequisites
-
-You will need to create an Anthropic account
-
--> Create an account [HERE](https://console.anthropic.com)
+> ### Prerequisites
+> 
+> You will need to create an Anthropic account
+> 
+> -> Create an account [HERE](https://console.anthropic.com)
 
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below are the basic steps you need to follow to try this assistant on your local machine_
 
 1. Get a Antrhopic API Key at [anthropic](https://console.anthropic.com/settings/keys)
 2. Clone the repo
@@ -92,7 +91,7 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
